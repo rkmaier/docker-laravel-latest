@@ -1,0 +1,29 @@
+web:
+    image: hitalos/laravel:latest
+    container_name: laravel_web
+    ports:
+        - 80:80
+    volumes:
+        - ./:/var/www
+    links:
+        - db
+    environment:
+        DB_HOST: db
+        MYSQL_ROOT_PASSWORD: root
+        DB_DATABASE: database_2
+        DB_USERNAME: root
+        DB_PASSWORD: skipjack
+        DB_CONNECTION: mysql
+db:
+    image: mysql
+    container_name: database_2
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
+    ports:
+        - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: database_2
+        MYSQL_USER: erik
+        MYSQL_PASSWORD: skipjack
